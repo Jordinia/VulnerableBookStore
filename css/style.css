@@ -1,0 +1,111 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+form {
+  width: 300px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+form button {
+  width: 100%;
+  padding: 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #328f8a;
+  color: #fff;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #08ac4b;
+}
+
+#logo {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  height: auto;
+}
+
+.book-result {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 80%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-image {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.purchase-link {
+  display: block;
+  margin-top: 10px;
+  color: #328f8a;
+  text-decoration: none;
+}
+
+.purchase-link:hover {
+  color: #08ac4b;
+}
+
+.book-results-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 80%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Add horizontal scroll if needed */
+}
+
+.book-result {
+  flex: 1 0 auto;
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-cover-image {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.quantity-input {
+  margin-right: 20px;
+}

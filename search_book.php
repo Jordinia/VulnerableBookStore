@@ -9,47 +9,71 @@ if (!isset($_SESSION['username'])) {
 }
 
 // Process user input
+// Process user input
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
     $searchTerm = $_GET['search'];
-
-    // Intentionally vulnerable SQL query for educational purposes
-    $sql = "SELECT title, author, description, price, isbn FROM books WHERE title LIKE '%$searchTerm%'";
+ 
+    // If the search term is "*", return all books
+    if ($searchTerm == "*") {
+        $sql = "SELECT title, author, description, price, isbn, language, stock_quantity, cover_image_url FROM books";
+    } else {
+        // Otherwise, return books that match the search term
+        $sql = "SELECT title, author, description, price, isbn, language, stock_quantity, cover_image_url FROM books WHERE title LIKE '%$searchTerm%'";
+    }
+ 
     $result = $koneksi->query($sql);
-}
+ }
+ 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DVBS - Search</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Book Search</title>
+   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-    <h1>Search Page</h1>
-
-    <form action="search_book.php" method="get">
+   <img src="img/OIG.jpeg" alt="Logo" id="logo">
+    <form action="" method="get">
         <label for="search">Search by Book Name:</label>
         <input type="text" id="search" name="search" required>
         <button type="submit">Search</button>
+        <button type="submit" name="search" value="*" id="searchAll">Search All</button>
+        
     </form>
-
-    <?php
-    // Display search results
-    if (isset($result) && $result->num_rows > 0) {
-        // Display results
-        while ($row = $result->fetch_assoc()) {
-            echo "Title: " . $row['title'] . "<br>";
-            echo "Author: " . $row['author'] . "<br>";
-            echo "Description: " . $row['description'] . "<br>";
-            echo "Price: $" . $row['price'] . "<br>";
-            echo "ISBN: " . $row['isbn'] . "<br>";
-            echo "<a href='purchase.php?isbn=" . $row['isbn'] . "'>Purchase</a><br><br>";
-        }
-    } elseif (isset($result)) {
-        echo "No results found";
-    }
-    ?>
+   <div class="book-results-container">
+   <?php
+   // Display search results
+   if (isset($result) && $result->num_rows > 0) {
+       // Display results
+       while ($row = $result->fetch_assoc()) {
+           echo '<div class="book-result">';
+           echo "<strong>Title:</strong> " . htmlspecialchars($row['title']) . "<br>";
+           echo "<strong>Author:</strong> " . htmlspecialchars($row['author']) . "<br>";
+           echo "<strong>Description:</strong> " . htmlspecialchars($row['description']) . "<br>";
+           echo "<strong>Price:</strong> $" . htmlspecialchars($row['price']) . "<br>";
+           echo "<strong>ISBN:</strong> " . htmlspecialchars($row['isbn']) . "<br>";
+           echo '<img class="book-image" src="' . htmlspecialchars($row['cover_image_url']) . '" alt="Book Cover">';
+           
+           // Add purchase link
+           echo '<a class="purchase-link" href="purchase.php?isbn=' . htmlspecialchars($row['isbn']) . '">Purchase</a>';
+           
+           echo '</div>';
+       }
+   } elseif (isset($result)) {
+       echo "No results found";
+   }
+   ?>
+</div>
 
 </body>
+<script>
+document.getElementById('searchAll').addEventListener('click', function() {
+   document.getElementById('search').required = false;
+});
+</script>
+
+
 </html>
+

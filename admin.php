@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $isbn = $_POST['book_isbn'];
 
             // Placeholder query for deleting a book
-            $sqlDeleteBook = "DELETE FROM books WHERE title = '$isbn'";
+            $sqlDeleteBook = "DELETE FROM books WHERE isbn = '$isbn'";
             $resultDeleteBook = $koneksi->query($sqlDeleteBook);
 
             if ($resultDeleteBook) {
@@ -84,6 +84,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             break;
 
+        case 'list_users':
+            // Perform list users operation
+            $sqlListUsers = "SELECT * FROM users";
+            $resultListUsers = $koneksi->query($sqlListUsers);
+
+            if ($resultListUsers->num_rows > 0) {
+                echo "<div class='user-list'>";
+                echo "<h2>List of Users</h2>";
+                echo "<ul>";
+
+                // Display user information
+                while ($row = $resultListUsers->fetch_assoc()) {
+                    echo "<li>Username: " . htmlspecialchars($row['username']) . ", Email: " . htmlspecialchars($row['email']) . "</li>";
+                }
+
+                echo "</ul>";
+                echo "</div>";
+            } else {
+                echo "No users found.";
+            }
+            break;
         // Add more cases for additional admin actions
     }
 }
@@ -93,34 +114,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DVBS - Admin</title>
+    <title>VBookStore - Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 300px;
+        }
+
+        select, button {
+            padding: 8px;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+
+        .user-list {
+            margin-top: 20px;
+        }
+
+        .user-list li {
+            list-style: none;
+            margin-bottom: 8px;
+        }
+    </style>
 </head>
 <body>
 
     <h1>Admin Panel</h1>
 
     <!-- Admin actions form -->
-    <form action="" method="post">
+    <form action="" method="post" id="adminForm">
         <label for="action">Select Admin Action:</label>
-        <select id="action" name="action" required>
+        <select id="action" name="action" required onchange="updateForm()">
             <option value="add_book">Add Book</option>
             <option value="edit_book">Edit Book</option>
             <option value="delete_book">Delete Book</option>
             <option value="delete_all_books">Delete All Books (Experimental)</option>
+            <option value="list_users">List Users</option>
             <!-- Add more options for additional admin actions -->
         </select><br>
 
         <!-- Additional input fields based on the selected action -->
         <!-- You can customize this part based on the requirements of each admin action -->
-        <?php
-        // For example, if you are adding or editing a book, you might need fields like title, author, etc.
-        // You can adjust the input fields accordingly for each admin action.
-        ?>
         <label for="book_title">Book Title:</label>
-        <input type="text" id="book_title" name="book_title" required><br>
+        <input type="text" id="book_title" name="book_title"><br>
 
         <label for="book_author">Book Author:</label>
-        <input type="text" id="book_author" name="book_author" required><br>
+        <input type="text" id="book_author" name="book_author"><br>
 
         <?php
         // For editing or deleting a book, you might need additional input fields (e.g., ISBN)
@@ -132,6 +188,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <button type="submit">Perform Admin Action</button>
     </form>
+
+    <!-- User list -->
+    <?php
+    // Display user list if available
+    if (isset($resultListUsers) && $resultListUsers->num_rows > 0) {
+        echo "<div class='user-list'>";
+        echo "<h2>List of Users</h2>";
+        echo "<ul>";
+
+        // Display user information
+        while ($row = $resultListUsers->fetch_assoc()) {
+            echo "<li>Username: " . htmlspecialchars($row['username']) . ", Email: " . htmlspecialchars($row['email']) . "</li>";
+        }
+
+        echo "</ul>";
+        echo "</div>";
+    } elseif (isset($resultListUsers)) {
+        echo "No users found.";
+    }
+    ?>
+
+    <script>
+        function updateForm() {
+            var action = document.getElementById("action").value;
+            var bookTitle = document.getElementById("book_title");
+            var bookAuthor = document.getElementById("book_author");
+
+            // Reset required attribute for book_title and book_author
+            bookTitle.removeAttribute("required");
+            bookAuthor.removeAttribute("required");
+
+            // Set required attribute based on the selected action
+            if (action === "add_book" || action === "edit_book") {
+                bookTitle.setAttribute("required", "required");
+                bookAuthor.setAttribute("required", "required");
+            }
+        }
+    </script>
 
 </body>
 </html>

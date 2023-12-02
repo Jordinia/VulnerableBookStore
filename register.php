@@ -29,38 +29,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DVBS - Register</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>DVBS - Register</title>
+   <style>
+       body {
+           font-family: Arial, sans-serif;
+       }
+       form {
+           width: 300px;
+           margin: 0 auto;
+       }
+       label {
+           display: block;
+           margin-top: 20px;
+       }
+       input[type="text"], input[type="email"], input[type="password"], input[type="date"] {
+           width: 100%;
+           padding: 10px;
+           margin-top: 5px;
+       }
+       button {
+           display: block;
+           width: 100%;
+           padding: 10px;
+           margin-top: 20px;
+           background-color: #4CAF50;
+           color: white;
+           border: none;
+           cursor: pointer;
+       }
+   </style>
 </head>
 <body>
+   <h1>User Registration</h1>
 
-    <h1>User Registration</h1>
+   <form action="" method="post">
+       <label for="username">Username:</label>
+       <input type="text" id="username" name="username" required>
 
-    <form action="" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br>
+       <label for="email">Email:</label>
+       <input type="email" id="email" name="email" required>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
+       <label for="password">Password:</label>
+       <input type="password" id="password" name="password" required>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
+       <label for="date_of_birth">Date of Birth:</label>
+       <input type="date" id="date_of_birth" name="date_of_birth" required>
 
-        <label for="date_of_birth">Date of Birth:</label>
-        <input type="date" id="date_of_birth" name="date_of_birth" required><br>
+       <label for="payment_card_number">Payment Card Number:</label>
+       <input type="text" id="payment_card_number" name="payment_card_number" required>
 
-        <label for="payment_card_number">Payment Card Number:</label>
-        <input type="text" id="payment_card_number" name="payment_card_number" required><br>
+       <label for="card_expiry_date">Card Expiry Date:</label>
+       <input type="text" id="card_expiry_date" name="card_expiry_date" required>
 
-        <label for="card_expiry_date">Card Expiry Date:</label>
-        <input type="text" id="card_expiry_date" name="card_expiry_date" required><br>
+       <label for="card_cvv">Card CVV:</label>
+       <input type="text" id="card_cvv" name="card_cvv" required>
 
-        <label for="card_cvv">Card CVV:</label>
-        <input type="text" id="card_cvv" name="card_cvv" required><br>
-
-        <button type="submit">Register</button>
-    </form>
-
+       <button type="submit">Register</button>
+   </form>
 </body>
 </html>
