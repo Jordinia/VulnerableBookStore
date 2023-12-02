@@ -62,13 +62,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $isbn = $_POST['book_isbn'];
 
             // Placeholder query for deleting a book
-            $sqlDeleteBook = "DELETE FROM books WHERE isbn = '$isbn'";
+            $sqlDeleteBook = "DELETE FROM books WHERE title = '$isbn'";
             $resultDeleteBook = $koneksi->query($sqlDeleteBook);
 
             if ($resultDeleteBook) {
                 echo "Book deleted successfully!";
             } else {
                 echo "Error deleting the book.";
+            }
+            break;
+
+        case 'delete_all_books':
+            // Placeholder query for deleting all books
+            $sqlDeleteAllBooks = "DELETE FROM books";
+            $resultDeleteAllBooks = $koneksi->query($sqlDeleteAllBooks);
+
+            if ($resultDeleteAllBooks) {
+                echo "All books deleted successfully!";
+            } else {
+                echo "Error deleting all books.";
             }
             break;
 
@@ -94,5 +106,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="add_book">Add Book</option>
             <option value="edit_book">Edit Book</option>
             <option value="delete_book">Delete Book</option>
+            <option value="delete_all_books">Delete All Books (Experimental)</option>
+            <!-- Add more options for additional admin actions -->
         </select><br>
-         <?php
+
+        <!-- Additional input fields based on the selected action -->
+        <!-- You can customize this part based on the requirements of each admin action -->
+        <?php
+        // For example, if you are adding or editing a book, you might need fields like title, author, etc.
+        // You can adjust the input fields accordingly for each admin action.
+        ?>
+        <label for="book_title">Book Title:</label>
+        <input type="text" id="book_title" name="book_title" required><br>
+
+        <label for="book_author">Book Author:</label>
+        <input type="text" id="book_author" name="book_author" required><br>
+
+        <?php
+        // For editing or deleting a book, you might need additional input fields (e.g., ISBN)
+        ?>
+        <label for="book_isbn">Book ISBN:</label>
+        <input type="text" id="book_isbn" name="book_isbn"><br>
+
+        <!-- Add more input fields based on the requirements of each admin action -->
+
+        <button type="submit">Perform Admin Action</button>
+    </form>
+
+</body>
+</html>
