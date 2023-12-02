@@ -10,19 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $koneksi->query($sql);
 
     if ($result->num_rows == 1) {
-        // User authenticated
-        session_start();
-        $_SESSION['username'] = $username;
-
-        // Check if the user is an admin
-        $row = $result->fetch_assoc();
-        if ($row['role'] == "admin") {
-            header("Location: admin.php");
-            exit();
-        } else {
-            header("Location: search_book.php");
-            exit();
-        }
+        echo "Login successful!";
+        // Perform any necessary actions after successful login
     } else {
         echo "Login failed. Please check your username and password.";
     }
