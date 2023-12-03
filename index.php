@@ -6,8 +6,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = md5($_POST['password']); // Hash the password (intentionally weak for educational purposes)
 
-    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-    $result = $koneksi->query($sql);
+    // Use prepared statement to prevent SQL injection
+    $sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+    $stmt = $koneksi->prepare($sql);
+
+    // Bind parameters
+    $stmt->bind_param("ss", $username, $password);
+
+    // Execute the statement
+    $stmt->execute();
+
+    // Get the result
+    $result = $stmt->get_result();
 
     if ($result->num_rows == 1) {
         // User authenticated
@@ -49,6 +59,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <p>Don't have an account? <a href="register.php">Register here</a>.</p>
   </form>
 </body>
-
-
 </html>
