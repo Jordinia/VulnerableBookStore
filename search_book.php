@@ -9,16 +9,15 @@ if (!isset($_SESSION['username'])) {
 }
 
 // Process user input
-// Process user input
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
     $searchTerm = $_GET['search'];
  
     // If the search term is "*", return all books
     if ($searchTerm == "*") {
-        $sql = "SELECT title, author, description, price, isbn, language, stock_quantity, cover_image_url FROM books";
+        $sql = "SELECT title, author, description, price, isbn, cover_image_url FROM books";
     } else {
         // Otherwise, return books that match the search term
-        $sql = "SELECT title, author, description, price, isbn, language, stock_quantity, cover_image_url FROM books WHERE title LIKE '%$searchTerm%'";
+        $sql = "SELECT title, author, description, price, isbn, cover_image_url FROM books WHERE title LIKE '%$searchTerm%'";
     }
  
     $result = $koneksi->query($sql);

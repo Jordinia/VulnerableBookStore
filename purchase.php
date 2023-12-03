@@ -48,14 +48,19 @@
           echo '<img class="book-cover-image" src="' . htmlspecialchars($row['cover_image_url']) . '" alt="Book Cover">';
           echo '<label for="quantity">Quantity:</label>';
           echo '<input type="number" id="quantity" name="quantity" class="quantity-input" required>';
-          echo '<button type="submit" id="purchase">Purchase</button>';
+          echo '<button type="submit">Purchase</button>';
           echo '<button type="submit" id="back" onclick="window.location.href=\'search_book.php\'">Go back to search page</button>';
           echo '</form>';
-
+          
       } else {
           echo "<p>Book not found.</p>";
       }
   }
+  ?>
+  <?php
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    echo "Purchase successful!";
+}
   ?>
 </body>
 <script>
