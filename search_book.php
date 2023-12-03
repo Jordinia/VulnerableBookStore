@@ -15,12 +15,22 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
     // If the search term is "*", return all books
     if ($searchTerm == "*") {
         $sql = "SELECT title, author, description, price, isbn, cover_image_url FROM books";
+        $result = $koneksi->query($sql);
     } else {
         // Otherwise, return books that match the search term
-        $sql = "SELECT title, author, description, price, isbn, cover_image_url FROM books WHERE title LIKE '%$searchTerm%'";
+        $sql = "SELECT title, author, description, price, isbn, cover_image_url FROM books WHERE title LIKE ?";
+        $stmt = $koneksi->prepare($sql);
+        // Bind the parameter
+        $searchParam = "%" . $searchTerm . "%";
+        $stmt->bind_param("s", $searchParam);
+
+        // Execute the statement
+        $stmt->execute();
+
+        // Get the result set
+        $result = $stmt->get_result();
     }
  
-    $result = $koneksi->query($sql);
  }
  
 ?>
@@ -61,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
            echo '</div>';
        }
    } elseif (isset($result)) {
-       echo "No results found";
+       echo "Your search for \"" . $searchTerm . "\" returned no result";
    }
    ?>
 </div>
