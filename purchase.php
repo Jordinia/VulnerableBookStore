@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DVBS - Purchase</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('img/pxfuel.jpg'); /* Replace with your background image path */
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 0;
+    }
+    label {
+      margin-top= 10px;
+    }
+    form button {
+            margin-bottom: 10px; /* Adjust the margin as needed */
+        }
+  </style>
 </head>
 <body>
   <img src="img/OIG.jpeg" alt="Logo" id="logo">
@@ -49,7 +64,7 @@
           echo '<label for="quantity">Quantity:</label>';
           echo '<input type="number" id="quantity" name="quantity" class="quantity-input" required>';
           echo '<button type="submit" id="purchase">Purchase</button>';
-          echo '<button type="submit" id="back" onclick="window.location.href=\'search_book.php\'">Go back to search page</button>';
+          echo '<a href="search_book.php"><button type="button" id="back">Go back to search page</button></a>';
           echo '</form>';
 
       } else {

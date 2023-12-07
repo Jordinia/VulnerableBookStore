@@ -33,8 +33,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DVBS - Login</title>
+    <title>Login</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+  background-image: url('img/pxfuel.jpg');
+  background-size: cover; /* Adjust the background size as needed */
+  background-repeat: no-repeat;
+
+}
+    </style>
 </head>
 <body>
   <img src="img/OIG.jpeg" alt="Logo" id="logo">

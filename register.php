@@ -31,11 +31,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>DVBS - Register</title>
+   <title>Register</title>
+   <link rel="stylesheet" href="css/style.css">
    <style>
        body {
-           font-family: Arial, sans-serif;
-       }
+            font-family: Arial, sans-serif;
+            background-image: url('img/pxfuel.jpg');
+            background-size: cover; /* Adjust the background size as needed */
+            background-repeat: no-repeat;
+            margin: 0; /* Remove default body margin */
+        }
        form {
            width: 300px;
            margin: 0 auto;
@@ -62,9 +67,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    </style>
 </head>
 <body>
-   <h1>User Registration</h1>
-
+   <img src="img/OIG.jpeg" alt="Logo" id="logo">
    <form action="" method="post">
+       <h1>User Registration</h1>
+
        <label for="username">Username:</label>
        <input type="text" id="username" name="username" required>
 
@@ -89,4 +95,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
        <button type="submit">Register</button>
    </form>
 </body>
+
 </html>

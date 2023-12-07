@@ -1,9 +1,15 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-image: url('img/pxfuel.jpg');
+  background-size: cover; /* Adjust the background size as needed */
+  background-repeat: no-repeat;
+  background-size: cover; /* Adjust the background size as needed */
 }
 
 form {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
   width: 300px;
   margin: 0 auto;
   padding: 30px;
@@ -12,26 +18,20 @@ form {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-form h1 {
-  text-align: center;
-  margin-bottom: 30px;
+label {
+  margin-bottom: 10px; /* Add some bottom margin to create a gap */
 }
 
-form label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-form input[type="text"] {
-  width: 100%;
+input {
+  width: 100%; /* Make the input elements take up the full width of their container */
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Add some bottom margin to create a gap */
 }
 
-form button {
-  width: 100%;
+button {
+  width: 100%; /* Make the button take up the full width of its container */
   padding: 20px;
   border: none;
   border-radius: 4px;
@@ -40,9 +40,10 @@ form button {
   cursor: pointer;
 }
 
-form button:hover {
+button:hover {
   background-color: #08ac4b;
 }
+
 
 #logo {
   display: block;

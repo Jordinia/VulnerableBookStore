@@ -90,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $resultListUsers = $koneksi->query($sqlListUsers);
 
             if ($resultListUsers->num_rows > 0) {
+                echo "<div class='user-list-container'>";
                 echo "<div class='user-list'>";
                 echo "<h2>List of Users</h2>";
                 echo "<ul>";
@@ -101,8 +102,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 echo "</ul>";
                 echo "</div>";
+                echo "</div>";
             } else {
-                echo "No users found.";
+                echo "<div class='user-list-container'>No users found.</div>";
             }
             break;
         // Add more cases for additional admin actions
@@ -111,14 +113,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VBookStore - Admin</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            background-image: url('img/pxfuel.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         h1 {
@@ -138,14 +145,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             width: 300px;
         }
 
-        select, button {
+        select,
+        button {
             padding: 8px;
             margin-top: 8px;
             cursor: pointer;
         }
 
+        .user-list-container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+        }
+
         .user-list {
-            margin-top: 20px;
+            /* Additional styling for the user list if needed */
         }
 
         .user-list li {
@@ -154,12 +172,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </style>
 </head>
+
 <body>
-
-    <h1>Admin Panel</h1>
-
     <!-- Admin actions form -->
     <form action="" method="post" id="adminForm">
+        <h1>Admin Panel</h1>
         <label for="action">Select Admin Action:</label>
         <select id="action" name="action" required onchange="updateForm()">
             <option value="add_book">Add Book</option>
@@ -190,24 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 
     <!-- User list -->
-    <?php
-    // Display user list if available
-    if (isset($resultListUsers) && $resultListUsers->num_rows > 0) {
-        echo "<div class='user-list'>";
-        echo "<h2>List of Users</h2>";
-        echo "<ul>";
-
-        // Display user information
-        while ($row = $resultListUsers->fetch_assoc()) {
-            echo "<li>Username: " . htmlspecialchars($row['username']) . ", Email: " . htmlspecialchars($row['email']) . "</li>";
-        }
-
-        echo "</ul>";
-        echo "</div>";
-    } elseif (isset($resultListUsers)) {
-        echo "No users found.";
-    }
-    ?>
+    <?php echo $userListHtml; ?>
 
     <script>
         function updateForm() {
@@ -226,6 +226,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     </script>
-
 </body>
+
 </html>
